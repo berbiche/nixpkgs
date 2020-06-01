@@ -77,7 +77,7 @@ stdenv.mkDerivation rec {
         --set JAVA_HOME ${java.home} \
         --set I4J_INSTALL_LOCATION $out/share/openwebstart/openwebstart \
         --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:${hicolor-icon-theme}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
-        --add-flags "-Dawt.useSystemAAFontSEttings=on -Djavafx.embed.singleThread=true -splash:$out/share/openwebstart/.install4j/s_1g4la53.png" \
+        --add-flags "-Dawt.useSystemAAFontSettings=lcd -splash:$out/share/openwebstart/.install4j/s_1g4la53.png" \
         --add-flags "-cp $out/share/openwebstart/.install4j/i4jruntime.jar:$out/share/openwebstart/.install4j/${install4j-launcher}.jar:$out/share/openwebstart/openwebstart.jar" \
         --add-flags "${launch}"
     '';
