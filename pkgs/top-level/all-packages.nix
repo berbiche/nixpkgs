@@ -21360,6 +21360,8 @@ in
 
   openrazer-daemon = with python3Packages; toPythonApplication openrazer-daemon;
 
+  openwebstart = callPackage ../applications/misc/openwebstart { };
+
   opusfile = callPackage ../applications/audio/opusfile { };
 
   opusTools = callPackage ../applications/audio/opus-tools { };

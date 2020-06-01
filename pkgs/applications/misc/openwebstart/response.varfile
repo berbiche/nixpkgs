@@ -1,0 +1,18 @@
+# This configuration file contains static properties for OpenWebStart
+# Documentation about the configuration can be found here: <https://openwebstart.com/configuration/>
+sys.fileAssociation.extensions$StringArray="jnlp","jnlpx"
+
+# Disables updating the JVM (this configuration key is undocumented)
+ows.jvm.manager.updateStrategy=NO_REMOTE
+# Lock the JVM update strategy, since it won't be able to write to the read only result
+ows.jvm.manager.updateStrategy.locked=true
+
+# Disables OpenWebStart's autoupdater
+ows.update.activated=false
+ows.update.activated.locked=true
+ows.checkUpdate=false
+ows.checkUpdate.locked=true
+ows.update.strategy.settings=NEVER
+ows.update.strategy.settings.locked=true
+ows.update.strategy.launch=NEVER
+ows.update.strategy.launch.locked=true
