@@ -79,6 +79,9 @@ stdenv.mkDerivation rec {
         --add-flags "-cp $out/share/${pname}/.install4j/i4jruntime.jar:$out/share/${pname}/.install4j/${install4j-launcher}.jar:$out/share/${pname}/openwebstart.jar" \
         --add-flags "${launch}"
     '';
+    # Different every release of OpenWebStart. found in deb within the exec line of the file `itw-settings` and `javaws` respectively
+    itw-settings-i4j-launcher = "launcher6799353e";
+    openwebstart-i4j-launcher = "launcher12cc4282";
   in ''
     # Copy JAR
     mkdir -pv $out/bin $out/opt $out/share/${pname}
@@ -103,8 +106,8 @@ stdenv.mkDerivation rec {
     mkdir -pv $out/share/mime/packages
     ln -sv ${mime-info} $out/share/mime/packages/jlnp.xml
 
-    ${wrap "itw-settings" "install4j.com.openwebstart.launcher.ControlPanelLauncher" "launcher6799353e"}
-    ${wrap "openwebstart" "install4j.com.openwebstart.launcher.OpenWebStartLauncher" "launcher12cc4282"}
+    ${wrap "itw-settings" "install4j.com.openwebstart.launcher.ControlPanelLauncher" itw-settings-i4j-launcher}
+    ${wrap "openwebstart" "install4j.com.openwebstart.launcher.OpenWebStartLauncher" openwebstart-i4j-launcher}
   '';
 
   meta = with stdenv.lib; {
