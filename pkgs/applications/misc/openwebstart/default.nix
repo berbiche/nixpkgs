@@ -74,8 +74,6 @@ stdenv.mkDerivation rec {
     # The install4j splashscreen and launcher filename may change. Must be manually retrieved from either ./javaws or ./itw-settings within the deb
     wrap = exec: launch: install4j-launcher: ''
       makeWrapper ${java}/bin/java $out/bin/${exec} \
-        --set JAVA_HOME ${java.home} \
-        --set I4J_INSTALL_LOCATION $out/share/${pname}/openwebstart \
         --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:${hicolor-icon-theme}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
         --add-flags "-Dawt.useSystemAAFontSettings=lcd -splash:$out/share/${pname}/.install4j/s_1g4la53.png" \
         --add-flags "-cp $out/share/${pname}/.install4j/i4jruntime.jar:$out/share/${pname}/.install4j/${install4j-launcher}.jar:$out/share/${pname}/openwebstart.jar" \
