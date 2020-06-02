@@ -89,6 +89,7 @@ stdenv.mkDerivation rec {
 
     # Copy OpenWebStart varfile
     ln -sv ${varfile} $out/share/${pname}/response.varfile
+    ln -sv ${varfile} $out/share/${pname}/.install4j/response.varfile
 
     # Extract icons
     ${java}/bin/jar xf $out/share/${pname}/openwebstart.jar com/openwebstart/app/icon
