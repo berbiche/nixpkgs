@@ -75,23 +75,23 @@ stdenv.mkDerivation rec {
     wrap = exec: launch: install4j-launcher: ''
       makeWrapper ${java}/bin/java $out/bin/${exec} \
         --set JAVA_HOME ${java.home} \
-        --set I4J_INSTALL_LOCATION $out/share/openwebstart/openwebstart \
+        --set I4J_INSTALL_LOCATION $out/share/${pname}/openwebstart \
         --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:${hicolor-icon-theme}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
-        --add-flags "-Dawt.useSystemAAFontSettings=lcd -splash:$out/share/openwebstart/.install4j/s_1g4la53.png" \
-        --add-flags "-cp $out/share/openwebstart/.install4j/i4jruntime.jar:$out/share/openwebstart/.install4j/${install4j-launcher}.jar:$out/share/openwebstart/openwebstart.jar" \
+        --add-flags "-Dawt.useSystemAAFontSettings=lcd -splash:$out/share/${pname}/.install4j/s_1g4la53.png" \
+        --add-flags "-cp $out/share/${pname}/.install4j/i4jruntime.jar:$out/share/${pname}/.install4j/${install4j-launcher}.jar:$out/share/${pname}/openwebstart.jar" \
         --add-flags "${launch}"
     '';
   in ''
     # Copy JAR
-    mkdir -pv $out/bin $out/opt $out/share/openwebstart
-    cp -v OpenWebStart/openwebstart.jar $out/share/openwebstart
-    cp -vr OpenWebStart/.install4j $out/share/openwebstart
+    mkdir -pv $out/bin $out/opt $out/share/${pname}
+    cp -v OpenWebStart/openwebstart.jar $out/share/${pname}
+    cp -vr OpenWebStart/.install4j $out/share/${pname}
 
     # Copy OpenWebStart varfile
-    ln -sv ${varfile} $out/share/openwebstart/response.varfile
+    ln -sv ${varfile} $out/share/${pname}/response.varfile
 
     # Extract icons
-    ${java}/bin/jar xf $out/share/openwebstart/openwebstart.jar com/openwebstart/app/icon
+    ${java}/bin/jar xf $out/share/${pname}/openwebstart.jar com/openwebstart/app/icon
     for size in 32 64 128 256 512; do
       mkdir -pv $out/share/icons/hicolor/''${size}x''${size}/apps
       install -Dm444 com/openwebstart/app/icon/default-icon-''${size}.png $out/share/icons/hicolor/''${size}x''${size}/apps/openwebstart.png
