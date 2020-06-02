@@ -76,16 +76,16 @@ stdenv.mkDerivation rec {
       makeWrapper ${java}/bin/java $out/bin/${exec} \
         --prefix XDG_DATA_DIRS : "$XDG_ICON_DIRS:${gtk3.out}/share:${gsettings-desktop-schemas}/share:${hicolor-icon-theme}/share:$out/share:$GSETTINGS_SCHEMAS_PATH" \
         --add-flags "-Dawt.useSystemAAFontSettings=lcd -splash:$out/share/${pname}/.install4j/s_1g4la53.png" \
-        --add-flags "-cp $out/share/${pname}/.install4j/i4jruntime.jar:$out/share/${pname}/.install4j/${install4j-launcher}.jar:$out/share/${pname}/openwebstart.jar" \
-        --add-flags "${launch}"
+        --add-flags "-cp $out/share/${pname}/.install4j/i4jruntime.jar:$out/share/${pname}/.install4j/${install4j-launcher}.jar:$out/share/${pname}/${pname}.jar" \
+        --add-flags ${launch}
     '';
     # Different every release of OpenWebStart. found in deb within the exec line of the file `itw-settings` and `javaws` respectively
     itw-settings-i4j-launcher = "launcher6799353e";
     openwebstart-i4j-launcher = "launcher12cc4282";
   in ''
     # Copy JAR
-    mkdir -pv $out/bin $out/opt $out/share/${pname}
-    cp -v OpenWebStart/openwebstart.jar $out/share/${pname}
+    mkdir -pv $out/bin $out/share/${pname}
+    cp -v OpenWebStart/openwebstart.jar $out/share/${pname}/${pname}.jar
     cp -vr OpenWebStart/.install4j $out/share/${pname}
 
     # Copy OpenWebStart varfile
@@ -93,7 +93,7 @@ stdenv.mkDerivation rec {
     ln -sv ${varfile} $out/share/${pname}/.install4j/response.varfile
 
     # Extract icons
-    ${java}/bin/jar xf $out/share/${pname}/openwebstart.jar com/openwebstart/app/icon
+    ${java}/bin/jar xf $out/share/${pname}/${pname}.jar com/openwebstart/app/icon
     for size in 32 64 128 256 512; do
       mkdir -pv $out/share/icons/hicolor/''${size}x''${size}/apps
       install -Dm444 com/openwebstart/app/icon/default-icon-''${size}.png $out/share/icons/hicolor/''${size}x''${size}/apps/openwebstart.png
