@@ -22229,6 +22229,8 @@ in
     sponsorblock = callPackage ../applications/video/mpv/scripts/sponsorblock.nix {};
   };
 
+  mpvmenu = callPackage ../applications/misc/mpvmenu {};
+
   mrpeach = callPackage ../applications/audio/pd-plugins/mrpeach { };
 
   mrxvt = callPackage ../applications/misc/mrxvt { };
