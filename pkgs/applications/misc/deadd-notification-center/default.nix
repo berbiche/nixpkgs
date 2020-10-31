@@ -1,9 +1,11 @@
 { stdenv
 , fetchurl
 , autoPatchelfHook
+, wrapGAppsHook
 , gtk3
 , gobject-introspection
 , libxml2
+, hicolor-icon-theme
 }:
 
 let
@@ -25,12 +27,16 @@ stdenv.mkDerivation rec {
 
   dontUnpack = true;
 
-  nativeBuildInputs = [ autoPatchelfHook ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    wrapGAppsHook
+  ];
 
   buildInputs = [
     gtk3
     gobject-introspection
     libxml2
+    hicolor-icon-theme
   ];
 
   installPhase = ''
@@ -38,7 +44,7 @@ stdenv.mkDerivation rec {
     cp $src $out/bin/deadd-notification-center
     chmod +x $out/bin/deadd-notification-center
 
-    sed "s|##PREFIX##|$out|g" ${dbusService} > $out/share/dbus-1/services/com.ph-uhl.deadd.notification.service 
+    sed "s|##PREFIX##|$out|g" ${dbusService} > $out/share/dbus-1/services/com.ph-uhl.deadd.notification.service
   '';
 
   meta = with stdenv.lib; {
